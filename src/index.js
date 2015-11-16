@@ -59,7 +59,7 @@ const isTabEnabled = (entity, mashupConfig) => {
 
     if (!showOnProjects.length) return false;
 
-    if (entity.hasOwnProperty('projectId')) return isInProjectsToShow({od: entity.projectId});
+    if (entity.hasOwnProperty('projectId')) return isInProjectsToShow({id: entity.projectId});
 
     getProject(entity)
         .then((project) => Boolean(project) && isInProjectsToShow(project))
