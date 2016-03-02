@@ -1,5 +1,5 @@
 /* globals mashup */
-import $ from 'jquery';
+import {when, Deferred} from 'jquery';
 import {noop, property} from 'underscore';
 
 var React = require('react');
@@ -13,7 +13,7 @@ require('./style.css');
 const waitForAppConfigurator = () => {
 
     let appConfiguratorIsResolved = false;
-    const appConfiguratorDef = new $.Deferred();
+    const appConfiguratorDef = new Deferred();
 
     /* eslint-disable no-unused-vars */
     configurator.getGlobalBus().on('configurator.ready', (e, appConfigurator) => {
@@ -61,7 +61,7 @@ const isTabEnabled = (entity, mashupConfig) => {
 
     if (entity.hasOwnProperty('projectId')) return isInProjectsToShow({id: entity.projectId});
 
-    getProject(entity)
+    return getProject(entity)
         .then((project) => Boolean(project) && isInProjectsToShow(project))
         .fail(() => false);
 
@@ -69,8 +69,7 @@ const isTabEnabled = (entity, mashupConfig) => {
 
 const createTabContent = (entity, holder, mashupConfig) => {
 
-    $
-        .when(isTabEnabled(entity, mashupConfig), getAppConfigurator())
+    when(isTabEnabled(entity, mashupConfig), getAppConfigurator())
         .then((enabled, appConfigurator) => {
 
             React.render((
@@ -88,11 +87,5 @@ const createTabContent = (entity, holder, mashupConfig) => {
 const mashupConfig = mashup.config;
 
 view.addTab('Template', ($el, {entity}) => createTabContent(entity, $el[0], mashupConfig), noop, {
-    getViewIsSuitablePromiseCallback: ({entity}) => {
-
-        const enabled = isTabEnabled(entity, mashupConfig);
-
-        return enabled.then ? enabled : new $.Deferred().resolve(enabled).promise();
-
-    }
-});
+    getViewIsSuitablePromiseCallback: ({entity}) =>
+        when(isTabEnabled(entity, mashupConfig)).promise()});
