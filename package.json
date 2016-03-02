@@ -13,8 +13,8 @@
     "start": "outputPath=$TARGETPROCESS_MASHUPS_PATH/$npm_package_name; rm -rf $outputPath && NODE_ENV=development webpack --watch --output-path $outputPath",
     "build:production": "webpack --output-path build --config webpack-production.config.js && mv build/index.js build/release.js",
     "build:library": "rm -rf build/library && webpack --output-path build/library --config webpack-library.config.js && cp docs/README.md build/library/README.mkd && cp docs/*.png build/library",
-    "build:all": "npm shrinkwrap --dev && npm run build:production && npm run build:library",
-    "commit": "npm test && npm run build:all && git add -A build && git commit -m 'Build' && git push origin HEAD"
+    "build:all": "npm run build:production && npm run build:library",
+    "commit": "npm test && npm shrinkwrap --dev && npm run build:all && git add -A build npm-shrinkwrap.json && git commit -m 'Build' && git push origin HEAD"
   },
   "license": {
     "type": "MIT",
