@@ -1,5 +1,5 @@
 var _ = require('Underscore');
-var React = require('react');
+var React = require('react/addons');
 var TemplatesManagerTestCase = require('./TemplatesManagerTestCase');
 var TemplatesManagerTask = require('./TemplatesManagerTask');
 

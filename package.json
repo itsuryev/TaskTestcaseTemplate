@@ -32,6 +32,7 @@
     "eslint": "^1.9.0",
     "eslint-plugin-react": "^3.8.0",
     "file-loader": "^0.8.4",
+    "react": "^0.13.3",
     "style-loader": "^0.12.3",
     "targetprocess-mashup-config-loader": "targetprocess/targetprocess-mashup-config-loader",
     "targetprocess-mashup-manifest-loader": "targetprocess/targetprocess-mashup-manifest-loader",
