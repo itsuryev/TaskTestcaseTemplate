@@ -350,7 +350,9 @@ var store = {
             fields: [{
                 'project': ['id']
             }, {
-                'assignedTeams': ['team']
+                'assignedTeams': [{
+                    'team': ['id']
+                }]
             }]
         });
     },
