@@ -176,18 +176,24 @@ var store = {
                 }
             ]
         })
-        .then((res) =>
-            $.whenList(userStory.assignedTeams.map((v) =>
-                store.saveDef('teamAssignments', {
+        .then((res) => {
+
+            if (userStory.responsibleTeam) {
+
+                return store.saveDef('teamAssignments', {
                     $set: {
                         Assignable: {
                             id: res.data.id
                         },
                         Team: {
-                            id: v.team.id
+                            id: userStory.responsibleTeam.team.id
                         }
                     }
-                }))));
+                });
+
+            } else return null;
+
+        });
 
     },
 
@@ -350,7 +356,7 @@ var store = {
             fields: [{
                 'project': ['id']
             }, {
-                'assignedTeams': [{
+                'responsibleTeam': [{
                     'team': ['id']
                 }]
             }]
