@@ -73,15 +73,16 @@ var TemplatesManagerRow = React.createClass({
 
         if (item.status === 'edit') {
             inner = (
-                <div className="tm-name tm-name-edit tau-icons-general-before editableText">
+                <div className="tm-name">
                     <input type="text" ref="name" defaultValue={item.name}
                         autoFocus={true}
-                        onBlur={this.handleSave} />
+                        onBlur={this.handleSave}
+                    />
                 </div>
             );
         } else {
             inner = (
-                <div className="tm-name tau-icons-general-before editableText" onClick={this.handleStartEdit}>
+                <div className="tm-name editableText" onClick={this.handleStartEdit}>
                     <span>{item.name}</span>
                 </div>
             );
@@ -95,8 +96,14 @@ var TemplatesManagerRow = React.createClass({
         return (
             <tbody>
                 <tr className={className}>
-                    <td className="td-name" onClick={this.handleToggleRow}>
-                        {inner}
+                    <td className="td-name">
+                        <div className="td-name-inner">
+                            <i
+                                className={cx({'tau-icons-general-before tm-expander': true, active: item.isExpanded})}
+                                onClick={this.handleToggleRow}
+                            />
+                            {inner}
+                        </div>
                     </td>
                     <td className="td-entities">
                         <span className="entity-icon entity-task">T</span>
@@ -121,7 +128,7 @@ var TemplatesManagerRow = React.createClass({
 
     handleToggleRow: function() {
 
-        this.props.store.expandTemplate(this.props.item);
+        this.props.store.toggleExpand(this.props.item);
     },
 
     handleCreateTask: function() {
@@ -140,13 +147,9 @@ var TemplatesManagerRow = React.createClass({
         this.props.store.removeTemplate(this.props.item);
     },
 
-    handleStartEdit: function(e) {
+    handleStartEdit: function() {
 
-        if (this.props.item.isExpanded) {
-
-            e.stopPropagation();
-            this.props.store.editTemplate(this.props.item);
-        }
+        this.props.store.editTemplate(this.props.item);
 
     },
 

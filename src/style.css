@@ -61,23 +61,27 @@
 .tm-grid .info-line.active td, .tm-grid .info-line:hover td {
     background-color: #e6eef8;
 }
-.tm-grid .info-line:hover td {
-    cursor: pointer;
-}
+
 .tm-grid .td-name {
     padding: 0 20px 0 0;
 }
 .tm-grid .td-name .tm-name {
     display: inline-block;
     position: relative;
-    padding: 7px 22px 6px 26px;
+    padding: 3px 22px 3px 15px;
     border: none;
     max-width: 100%;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     line-height: 0;
+    cursor: pointer;
 }
+
+.tm-grid .td-name .tm-name.editableText {
+    padding: 7px 22px 6px 15px;
+}
+
 .tm-grid .td-name .tm-name span {
     display: inline-block;
     line-height: 20px;
@@ -89,20 +93,35 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+
 }
-.tm-grid .td-name .tm-name:before {
+
+.td-name-inner {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+
+}
+
+.tm-expander {
+    padding: 9px;
+    cursor: pointer;
+}
+
+.tm-expander:before {
+    cursor: pointer;
     content: "";
     display: block;
     background-position: -110px -158px;
     width: 11px;
     height: 11px;
-    position: absolute;
     top: 11px;
     left: 8px;
 }
-.tm-grid .active .td-name .tm-name:before {
+.tm-expander.active:before {
     background-position: -60px -160px;
 }
+
 .tm-grid .td-name .tm-name:hover {
     background-color: initial;
     background-position: 100% 0.9em;
@@ -125,7 +144,6 @@
 }
 .tm-grid .info-line.active .tm-name:hover:after {
     content: "";
-    
     width: 20px;
     height: 12px;
     position: absolute;

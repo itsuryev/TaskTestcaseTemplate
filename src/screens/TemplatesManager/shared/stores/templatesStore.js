@@ -68,11 +68,13 @@ var store = {
 
     },
 
-    expandTemplate: function(template) {
+    toggleExpand: function(template) {
+
+        template.isExpanded = !template.isExpanded;
 
         this.items.forEach(function(v) {
-            if (v !== template) {
-                v.isExpanded = false;
+            if (v !== template || !template.isExpanded) {
+
                 v.status = '';
 
                 v.tasks.forEach(function(v) {
@@ -88,7 +90,6 @@ var store = {
             }
         });
 
-        template.isExpanded = true;
         this.fire('update');
     },
 
