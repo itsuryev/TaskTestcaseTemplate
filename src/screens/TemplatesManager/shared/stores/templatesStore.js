@@ -154,7 +154,9 @@ var store = {
 
     createTaskByTemplate: function(task, userStory) {
 
-        return this.configurator.getStore().saveDef('tasks', {
+        const store = this.configurator.getStore();
+
+        return store.saveDef('tasks', {
             $set: {
                 Name: task.Name,
                 Description: task.Description,
@@ -162,7 +164,7 @@ var store = {
                     Id: userStory.id
                 },
                 Project: {
-                    Id: userStory.project.id
+                    Id: userStory.project ? userStory.project.id : null
                 }
             },
             fields: [
@@ -174,7 +176,26 @@ var store = {
                     ]
                 }
             ]
+        })
+        .then((res) => {
+
+            if (userStory.responsibleTeam) {
+
+                return store.saveDef('teamAssignments', {
+                    $set: {
+                        Assignable: {
+                            id: res.data.id
+                        },
+                        Team: {
+                            id: userStory.responsibleTeam.team.id
+                        }
+                    }
+                });
+
+            } else return null;
+
         });
+
     },
 
     createTestCaseByTemplate: function(testCase, userStory) {
@@ -335,6 +356,10 @@ var store = {
             id: id,
             fields: [{
                 'project': ['id']
+            }, {
+                'responsibleTeam': [{
+                    'team': ['id']
+                }]
             }]
         });
     },
