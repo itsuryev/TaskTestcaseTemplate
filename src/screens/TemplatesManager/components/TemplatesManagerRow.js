@@ -73,12 +73,12 @@ var TemplatesManagerRow = React.createClass({
 
         if (item.status === 'edit') {
             inner = (
-                <div className="tm-name">
+                <form className="tm-name" onSubmit={this.handleSaveForm}>
                     <input type="text" ref="name" defaultValue={item.name}
                         autoFocus={true}
                         onBlur={this.handleSave}
                     />
-                </div>
+                </form>
             );
         } else {
             inner = (
@@ -159,6 +159,21 @@ var TemplatesManagerRow = React.createClass({
             this.props.item.name = val;
             this.props.store.saveTemplate(this.props.item);
         }
+    },
+
+    handleSaveForm(e) {
+
+        e.preventDefault();
+
+        var val = this.refs.name.getDOMNode().value.trim();
+
+        if (val) {
+
+            this.props.item.name = val;
+            this.props.store.saveTemplate(this.props.item);
+
+        }
+
     }
 
 });
