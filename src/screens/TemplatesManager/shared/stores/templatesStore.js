@@ -16,6 +16,16 @@ const fetchData = () =>
         })
         .then(({items}) => items);
 
+const getTeamOfUserStory = (userStory) => {
+
+    if (userStory.responsibleTeam) return userStory.responsibleTeam.team;
+
+    if (userStory.teamIteration) return userStory.teamIteration.team;
+
+    return null;
+
+};
+
 var store = {
 
     items: [],
@@ -179,7 +189,9 @@ var store = {
         })
         .then((res) => {
 
-            if (userStory.responsibleTeam) {
+            const team = getTeamOfUserStory(userStory);
+
+            if (team) {
 
                 return store.saveDef('teamAssignments', {
                     $set: {
@@ -187,7 +199,7 @@ var store = {
                             id: res.data.id
                         },
                         Team: {
-                            id: userStory.responsibleTeam.team.id
+                            id: team.id
                         }
                     }
                 });
@@ -358,6 +370,10 @@ var store = {
                 'project': ['id']
             }, {
                 'responsibleTeam': [{
+                    'team': ['id']
+                }]
+            }, {
+                'teamIteration': [{
                     'team': ['id']
                 }]
             }]
