@@ -1,6 +1,6 @@
 {
   "name": "TaskTestcaseTemplate",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Create templates for tasks and test cases to apply to multiple user stories.",
   "keywords": [
     "webpack",
