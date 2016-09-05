@@ -160,6 +160,10 @@
 [contenteditable]:focus {
     outline: none;
 }
+.tm-grid .tau-btn {
+    display: inline-block;
+    margin: 0 2px;
+}
 .tm-grid .td-actions .tau-btn {
     opacity: 0;
     -moz-transition: opacity 0.2s linear;
